@@ -17,14 +17,14 @@ public class PlayScreen implements Screen {
     private MarioBros game;
     Texture texture;
     //camera that follows game and actually shows what viewport is going to display
-    private OrthographicCamera gamecam;
-    private Viewport gamePort;
+    //private OrthographicCamera gamecam;
+    //private Viewport gamePort;
 
     public PlayScreen(MarioBros game) {
         this.game = game;
         texture = new Texture("badlogic.jpg");
-        gamecam = new OrthographicCamera();
-        gamePort = new StretchViewport(800, 480, gamecam);
+        //gamecam = new OrthographicCamera();
+        //gamePort = new StretchViewport(800, 480, gamecam);
     }
 
     @Override
