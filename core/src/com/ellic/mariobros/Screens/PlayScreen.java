@@ -1,38 +1,37 @@
 package com.ellic.mariobros.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ellic.mariobros.MarioBros;
+import com.ellic.mariobros.Scenes.Hud;
 
 /**
  * Created by Elli on 6/29/2016.
  */
 public class PlayScreen implements Screen {
     private MarioBros game;
-    Texture texture;
+    private Hud hud;
     //camera that follows game and actually shows what viewport is going to display
     private OrthographicCamera gamecam;
     private Viewport gamePort;
 
     public PlayScreen(MarioBros game) {
         this.game = game;
-        texture = new Texture("badlogic.jpg");
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(800, 480, gamecam);
-        /* stretch viewport streaches the graphics and can alter the way graphics look because
+        gamePort = new FitViewport(MarioBros.V_WIDTH, MarioBros.V_HEIGHT, gamecam);
+        /* stretch viewport stretches the graphics and can alter the way graphics look because
          * aspect ratio is not kept
          *
          * screen viewport keeps aspect ratio but in bigger devices may reveal more of the game
          * world and give these players an unfair advantage
          */
+
+        hud = new Hud(game.batch);
     }
 
     @Override
@@ -45,11 +44,9 @@ public class PlayScreen implements Screen {
         //clears the screen
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //where camera is in the game and show only what we want camera to show
-        game.batch.setProjectionMatrix(gamecam.combined);
-        game.batch.begin();
-        game.batch.draw(texture, 0, 0);
-        game.batch.end();
+        //what is shown via camera
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
